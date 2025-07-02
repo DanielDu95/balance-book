@@ -1,0 +1,57 @@
+@import "tailwindcss";
+
+@theme {
+  /* Light Mode Colors */
+  --color-primary: oklch(0.9 0.16 100); /* Bright Yellow */
+  --color-accent-1: oklch(0.82 0.18 40); /* Warm Orange */
+  --color-accent-2: oklch(0.75 0.08 160); /* Mint Green */
+
+  --text-xl: 18px;
+}
+
+@layer base {
+  html {
+    font-size: var(--text-xl);
+  }
+
+  :root {
+    background-color: white;
+    color: black;
+  }
+
+  .dark {
+    /* Override colors in dark mode */
+    --color-primary: oklch(0.72 0.1 280); /* Deep Purple */
+    --color-accent-1: oklch(0.6 0.13 200); /* Cool Blue */
+    --color-accent-2: oklch(0.5 0.07 340); /* Crimson */
+
+    background-color: oklch(0.18 0.02 250);
+    color: white;
+  }
+
+  body {
+    font-family: system-ui, sans-serif;
+  }
+}
+
+@layer components {
+  .btn {
+    @apply inline-flex items-center justify-center px-4 py-2 rounded-md text-sm font-medium transition-colors;
+    background-color: var(--color-primary);
+    color: black;
+  }
+
+  .btn:hover {
+    background-color: var(--color-accent-1);
+  }
+
+  .btn-secondary {
+    background-color: var(--color-accent-2);
+    color: white;
+  }
+
+  .btn-secondary:hover {
+    background-color: var(--color-primary);
+    color: black;
+  }
+}
