@@ -12,14 +12,14 @@ import {
 } from "react-icons/fa";
 
 const iconSet = [
-  FaUtensils,
-  FaHome,
-  FaBus,
-  FaShoppingBag,
-  FaGift,
-  FaChartLine,
-  FaMoneyBillWave,
-  FaTag,
+  { key: "FaUtensils", icon: FaUtensils },
+  { key: "FaHome", icon: FaHome },
+  { key: "FaBus", icon: FaBus },
+  { key: "FaShoppingBag", icon: FaShoppingBag },
+  { key: "FaGift", icon: FaGift },
+  { key: "FaChartLine", icon: FaChartLine },
+  { key: "FaMoneyBillWave", icon: FaMoneyBillWave },
+  { key: "FaTag", icon: FaTag },
 ];
 
 type Props = {
@@ -33,36 +33,42 @@ export function AddCategoryModal({ type, onClose, onAdd }: Props) {
     onClose();
   });
   const [name, setName] = useState("");
-  const [selectedIcon, setSelectedIcon] = useState<any>(iconSet[0]);
+  const [selectedIconKey, setSelectedIconKey] = useState<string>(
+    iconSet[0].key
+  );
 
   // Close modal when clicking outside
-
   const handleSubmit = () => {
     const trimmed = name.trim();
     if (!trimmed) return;
 
-    onAdd({ key: trimmed, label: trimmed, icon: selectedIcon });
-    onClose();
+    const selectedIcon = iconSet.find(
+      (icon) => icon.key === selectedIconKey
+    )?.icon;
+    if (selectedIcon) {
+      onAdd({ key: trimmed, label: trimmed, icon: selectedIcon });
+      onClose();
+    }
   };
 
   return (
     <div className="fixed inset-0 bg-black/30 flex items-center justify-center z-50">
       <div
         ref={modalRef}
-        className="bg-white dark:bg-gray-800 p-6 rounded-xl w-[90%] max-w-md shadow-lg"
+        className="bg-white dark:bg-gray-800 p-6 flex flex-col gap-7 rounded-xl w-[90%] max-w-md shadow-lg"
       >
         <h2 className="text-lg font-bold mb-4">Add New {type} Category</h2>
 
         {/* Icon Selector */}
-        <div className="grid grid-cols-4 gap-4 mb-4">
-          {iconSet.map((Icon, idx) => {
-            const isSelected = selectedIcon === Icon;
+        <div className="grid grid-cols-6 gap-y-4 ">
+          {iconSet.map(({ key, icon: Icon }, idx) => {
+            const isSelected = selectedIconKey === key;
             return (
               <button
                 key={idx}
                 type="button"
-                onClick={() => setSelectedIcon(Icon)}
-                className={`p-3 rounded-xl border transition
+                onClick={() => setSelectedIconKey(key)}
+                className={`p-3 rounded-full w-12 h-12 border transition flex justify-center
                   ${
                     isSelected
                       ? "bg-primary text-black border-transparent"

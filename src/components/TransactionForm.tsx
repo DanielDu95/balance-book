@@ -60,13 +60,14 @@ export default function TransactionForm() {
         <label className="block mb-1 font-medium">Amount</label>
         <input
           type="number"
-          step="0.01"
-          min="0"
-          {...register("amount", { required: true })}
+          {...register("amount", { required: true, min: 1 })}
           className="w-full rounded-md border px-3 py-2 dark:bg-gray-700 dark:border-gray-600"
         />
-        {errors.amount && (
+        {errors.amount?.type === "required" && (
           <p className="text-red-500 text-sm">Amount is required</p>
+        )}
+        {errors.amount?.type === "min" && (
+          <p className="text-red-500 text-sm">Amount must be greater than 0</p>
         )}
       </div>
 

@@ -40,14 +40,20 @@ export function CategorySelector({ type, selected, setValue }: Props) {
               type="button"
               key={key}
               onClick={() => setValue("category", key)}
-              className={`flex flex-col items-center justify-center p-4 rounded-xl transition-colors border
-                ${
-                  isSelected
-                    ? "bg-primary text-black border-transparent"
-                    : "bg-gray-100 dark:bg-gray-700 text-gray-600 hover:bg-gray-200 dark:hover:bg-gray-600 border-gray-300"
-                }`}
+              className={`flex flex-col items-center justify-center p-4 transition-colors
+               `}
             >
-              <Icon size={24} />
+              <div
+                className={`flex items-center justify-center rounded-full hover:bg-primary w-16 h-16 p-2
+                  ${
+                    isSelected ? "bg-primary" : "bg-gray-200 dark:bg-gray-600"
+                  }`}
+              >
+                <Icon
+                  size={24}
+                  className={`${isSelected ? "text-black" : "text-gray-600"}`}
+                />
+              </div>
               <span className="text-sm mt-2">{label}</span>
             </button>
           );
@@ -57,9 +63,11 @@ export function CategorySelector({ type, selected, setValue }: Props) {
         <button
           type="button"
           onClick={() => setIsModalOpen(true)}
-          className="flex flex-col items-center justify-center p-4 rounded-xl border border-dashed border-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 transition"
+          className="flex flex-col items-center justify-center p-4 rounded-xl  transition"
         >
-          <FaPlus size={24} />
+          <div className="flex items-center justify-center rounded-full w-16 h-16 p-2 bg-gray-200 dark:bg-gray-600 hover:bg-primary">
+            <FaPlus size={24} className="text-gray-600 dark:text-gray-300" />
+          </div>
           <span className="text-sm mt-2">Add</span>
         </button>
       </div>
