@@ -10,6 +10,7 @@ type Props = {
   selected: string;
   setValue: UseFormSetValue<any>;
   categories: { id: number; name: string; icon: string }[];
+  onAddCategory: (newCategory: { name: string; icon: string }) => void;
 };
 
 export function CategorySelector({
@@ -17,14 +18,16 @@ export function CategorySelector({
   selected,
   setValue,
   categories,
+  onAddCategory,
 }: Props) {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleAdd = (newCategory: {
     key: string;
     label: string;
-    icon: string;
+    icon: any;
   }) => {
+    onAddCategory({ name: newCategory.key, icon: newCategory.icon });
     setValue("category", newCategory.key);
   };
 

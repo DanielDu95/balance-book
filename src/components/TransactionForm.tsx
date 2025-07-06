@@ -4,8 +4,8 @@ import { TransactionTypeToggle } from "./TransactionTypeToggle";
 import { CategorySelector } from "./CategorySelector";
 import { useCategories } from "../hooks/useCategories";
 import { useTransactions } from "../hooks/useTransactions";
-import { useAuth } from "../hooks/useAuth";
 import { useAuthContext } from "../contexts/AuthContext";
+import { addCategory } from "../services/categories";
 
 type TransactionFormData = {
   type: "income" | "outcome";
@@ -74,7 +74,8 @@ export default function TransactionForm() {
             type={type}
             selected={watch("category")}
             setValue={setValue}
-            categories={categories || []}
+            categories={categories}
+            onAddCategory={addCategory}
           />
           {errors.category && (
             <p className="text-red-500 text-sm">Category is required</p>
