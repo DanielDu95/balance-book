@@ -2,60 +2,46 @@ import { useState } from "react";
 import { UseFormSetValue } from "react-hook-form";
 import { FaPlus, FaTag } from "react-icons/fa";
 import { AddCategoryModal } from "./AddCategoryModal";
-import { categoryOptions } from "../data/categoryMap";
+import { iconMap } from "../data/iconMap";
+import { CategoryItem } from "./CategoryItem";
 
 type Props = {
   type: "income" | "outcome";
   selected: string;
   setValue: UseFormSetValue<any>;
+  categories: { id: number; name: string; icon: string }[];
 };
 
-export function CategorySelector({ type, selected, setValue }: Props) {
-  const [customCategories, setCustomCategories] = useState<
-    { key: string; label: string; icon: any }[]
-  >([]);
-
+export function CategorySelector({
+  type,
+  selected,
+  setValue,
+  categories,
+}: Props) {
   const [isModalOpen, setIsModalOpen] = useState(false);
-
-  const defaultCategories = categoryOptions[type];
-  const allCategories = [...defaultCategories, ...customCategories];
 
   const handleAdd = (newCategory: {
     key: string;
     label: string;
-    icon: any;
+    icon: string;
   }) => {
-    setCustomCategories((prev) => [...prev, newCategory]);
     setValue("category", newCategory.key);
   };
 
   return (
     <div className="relative">
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
-        {allCategories.map(({ key, label, icon: Icon }) => {
-          const isSelected = selected === key;
-
+        {categories.map(({ id, name, icon }) => {
+          const Icon = iconMap[icon] ?? FaTag;
           return (
-            <button
-              type="button"
-              key={key}
-              onClick={() => setValue("category", key)}
-              className={`flex flex-col items-center justify-center p-4 transition-colors
-               `}
-            >
-              <div
-                className={`flex items-center justify-center rounded-full hover:bg-primary w-16 h-16 p-2
-                  ${
-                    isSelected ? "bg-primary" : "bg-gray-200 dark:bg-gray-600"
-                  }`}
-              >
-                <Icon
-                  size={24}
-                  className={`${isSelected ? "text-black" : "text-gray-600"}`}
-                />
-              </div>
-              <span className="text-sm mt-2">{label}</span>
-            </button>
+            <CategoryItem
+              key={id}
+              id={id}
+              name={name}
+              Icon={Icon}
+              selected={selected === name}
+              onSelect={(name) => setValue("category", name)}
+            />
           );
         })}
 
@@ -63,7 +49,7 @@ export function CategorySelector({ type, selected, setValue }: Props) {
         <button
           type="button"
           onClick={() => setIsModalOpen(true)}
-          className="flex flex-col items-center justify-center p-4 rounded-xl  transition"
+          className="flex flex-col items-center justify-center p-4 transition"
         >
           <div className="flex items-center justify-center rounded-full w-16 h-16 p-2 bg-gray-200 dark:bg-gray-600 hover:bg-primary">
             <FaPlus size={24} className="text-gray-600 dark:text-gray-300" />

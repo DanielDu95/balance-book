@@ -2,11 +2,10 @@ import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { TransactionTypeToggle } from "./TransactionTypeToggle";
 import { CategorySelector } from "./CategorySelector";
-
-const categories = {
-  income: ["Salary", "Bonus", "Investment"],
-  outcome: ["Food", "Rent", "Transport", "Shopping"],
-};
+import { useCategories } from "../hooks/useCategories";
+import { useTransactions } from "../hooks/useTransactions";
+import { useAuth } from "../hooks/useAuth";
+import { useAuthContext } from "../contexts/AuthContext";
 
 type TransactionFormData = {
   type: "income" | "outcome";
@@ -28,14 +27,34 @@ export default function TransactionForm() {
       type: "outcome",
     },
   });
-
+  const { user } = useAuthContext();
+  const userId = user?.id!;
   const type = watch("type");
 
-  const onSubmit = (data: TransactionFormData) => {
-    console.log("Submitting:", data);
-    // TODO: Save to Supabase
-    toast.success("Transaction added!");
-    reset({ type: "income" }); // reset to default
+  const {
+    categories,
+    isLoading: categoriesLoading,
+    error: categoriesError,
+  } = useCategories(userId, type);
+
+  const { addTransaction } = useTransactions(userId);
+
+  const onSubmit = async (data: TransactionFormData) => {
+    try {
+      await addTransaction({
+        moneyType: data.type,
+        category: data.category,
+        amount: data.amount,
+        remark: data.remark || "",
+        user_id: userId,
+      });
+
+      toast.success("Transaction added!");
+      reset({ amount: 0, remark: "", type: type });
+    } catch (error) {
+      console.error("Insert failed:", error);
+      toast.error("Failed to add transaction");
+    }
   };
 
   return (
@@ -43,19 +62,26 @@ export default function TransactionForm() {
       onSubmit={handleSubmit(onSubmit)}
       className="space-y-4 bg-white dark:bg-gray-800 p-4 rounded-xl shadow-md max-w-md mx-auto"
     >
-      {/* Type Toggle */}
       <TransactionTypeToggle watch={watch} setValue={setValue} />
 
-      <CategorySelector
-        type={type}
-        selected={watch("category")}
-        setValue={setValue}
-      />
-      {errors.category && (
-        <p className="text-red-500 text-sm">Category is required</p>
+      {categoriesLoading ? (
+        <p>Loading categories...</p>
+      ) : categoriesError ? (
+        <p className="text-red-500">Failed to load categories</p>
+      ) : (
+        <>
+          <CategorySelector
+            type={type}
+            selected={watch("category")}
+            setValue={setValue}
+            categories={categories || []}
+          />
+          {errors.category && (
+            <p className="text-red-500 text-sm">Category is required</p>
+          )}
+        </>
       )}
 
-      {/* Amount */}
       <div>
         <label className="block mb-1 font-medium">Amount</label>
         <input
@@ -71,7 +97,6 @@ export default function TransactionForm() {
         )}
       </div>
 
-      {/* Remark */}
       <div>
         <label className="block mb-1 font-medium">Remark</label>
         <input
@@ -81,7 +106,6 @@ export default function TransactionForm() {
         />
       </div>
 
-      {/* Submit */}
       <button type="submit" className="btn w-full">
         Add Transaction
       </button>
