@@ -5,7 +5,7 @@ import { CategorySelector } from "./CategorySelector";
 import { useCategories } from "../hooks/useCategories";
 import { useTransactions } from "../hooks/useTransactions";
 import { useAuthContext } from "../contexts/AuthContext";
-import { addCategory } from "../services/categories";
+import { useQueryClient } from "@tanstack/react-query";
 
 type TransactionFormData = {
   type: "income" | "outcome";
@@ -15,6 +15,8 @@ type TransactionFormData = {
 };
 
 export default function TransactionForm() {
+  const queryClient = useQueryClient();
+
   const {
     register,
     handleSubmit,
@@ -27,6 +29,7 @@ export default function TransactionForm() {
       type: "outcome",
     },
   });
+
   const { user } = useAuthContext();
   const userId = user?.id!;
   const type = watch("type");
@@ -35,6 +38,7 @@ export default function TransactionForm() {
     categories,
     isLoading: categoriesLoading,
     error: categoriesError,
+    addCategory: addCategoryMutation,
   } = useCategories(userId, type);
 
   const { addTransaction } = useTransactions(userId);
@@ -75,7 +79,6 @@ export default function TransactionForm() {
             selected={watch("category")}
             setValue={setValue}
             categories={categories}
-            onAddCategory={addCategory}
           />
           {errors.category && (
             <p className="text-red-500 text-sm">Category is required</p>

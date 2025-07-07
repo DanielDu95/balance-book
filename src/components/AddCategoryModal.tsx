@@ -1,6 +1,8 @@
 import { useRef, useState } from "react";
 import { useOutsideClick } from "../hooks/useOutsideClick";
 import { iconMap } from "../data/iconMap";
+import { useCategories } from "../hooks/useCategories";
+import { useAuthContext } from "../contexts/AuthContext";
 
 const iconEntries = Object.entries(iconMap).map(([key, icon]) => ({
   key,
@@ -10,23 +12,24 @@ const iconEntries = Object.entries(iconMap).map(([key, icon]) => ({
 type Props = {
   type: "income" | "outcome";
   onClose: () => void;
-  onAdd: (category: { key: string; label: string; icon: string }) => void; // icon is key string now
 };
 
-export function AddCategoryModal({ type, onClose, onAdd }: Props) {
+export function AddCategoryModal({ type, onClose }: Props) {
   const modalRef = useOutsideClick<HTMLDivElement>(onClose);
   const [name, setName] = useState("");
   const [selectedIconKey, setSelectedIconKey] = useState<string>(
     iconEntries[0].key
   );
+  const { user } = useAuthContext();
+  const userId = user?.id!;
+  const { addCategory } = useCategories(userId, type);
 
   const handleSubmit = () => {
     const trimmed = name.trim();
     if (!trimmed) return;
 
-    onAdd({
-      key: trimmed,
-      label: trimmed,
+    addCategory({
+      name: trimmed,
       icon: selectedIconKey, // use key here for saving to database
     });
 
