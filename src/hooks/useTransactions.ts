@@ -1,5 +1,5 @@
 // src/hooks/useTransactions.ts
-import { useCallback, useEffect, useState } from "react";
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import {
   Transaction,
   getTransactions,
@@ -9,56 +9,61 @@ import {
 } from "../services/transactions";
 
 export function useTransactions(userId: string) {
-  const [data, setData] = useState<Transaction[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<Error | null>(null);
+  const queryClient = useQueryClient();
 
-  // 🔁 Fetch
-  const fetchTransactions = useCallback(async () => {
-    try {
-      setLoading(true);
-      const transactions = await getTransactions(userId);
-      setData(transactions);
-      setError(null);
-    } catch (err: any) {
-      setError(err);
-    } finally {
-      setLoading(false);
-    }
-  }, [userId]);
+  // 🔁 Fetch transactions
+  const {
+    data: transactions = [],
+    isLoading,
+    isError,
+    error,
+  } = useQuery<Transaction[], Error>({
+    queryKey: ["transactions", userId],
+    queryFn: () => getTransactions(userId),
+    enabled: !!userId,
+  });
 
-  // 🔃 Initialize
-  useEffect(() => {
-    fetchTransactions();
-  }, [fetchTransactions]);
+  // ➕ Create transaction
+  const { mutateAsync: addTransaction } = useMutation({
+    mutationFn: (tx: Omit<Transaction, "id" | "created_at">) =>
+      createTransaction(tx),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["transactions", userId] });
+    },
+  });
 
-  // ➕ Create
-  const addTransaction = async (tx: Omit<Transaction, "id" | "created_at">) => {
-    const newTx = await createTransaction(tx);
-    setData((prev) => [newTx, ...prev]);
-    return newTx;
-  };
+  // ✏️ Update transaction
+  const { mutateAsync: editTransaction } = useMutation({
+    mutationFn: ({
+      id,
+      updates,
+    }: {
+      id: number;
+      updates: Partial<Transaction>;
+    }) => updateTransaction(id, updates),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["transactions", userId] });
+    },
+  });
 
-  // ✏️ Update
-  const editTransaction = async (id: number, updates: Partial<Transaction>) => {
-    const updatedTx = await updateTransaction(id, updates);
-    setData((prev) => prev.map((tx) => (tx.id === id ? updatedTx : tx)));
-    return updatedTx;
-  };
-
-  // ❌ Delete
-  const removeTransaction = async (id: number) => {
-    await deleteTransaction(id);
-    setData((prev) => prev.filter((tx) => tx.id !== id));
-  };
+  // ❌ Delete transaction
+  const { mutateAsync: removeTransaction } = useMutation({
+    mutationFn: (id: number) => deleteTransaction(id),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["transactions", userId] });
+    },
+  });
 
   return {
-    data,
-    loading,
-    error,
+    data: transactions,
+    loading: isLoading,
+    error: isError ? (error as Error) : null,
     addTransaction,
-    editTransaction,
+    editTransaction: (id: number, updates: Partial<Transaction>) =>
+      editTransaction({ id, updates }),
     removeTransaction,
-    refresh: fetchTransactions,
+    refresh: () =>
+      queryClient.invalidateQueries({ queryKey: ["transactions", userId] }),
   };
 }
+// This hook provides a simple interface for managing transactions, including fetching, adding, updating, and deleting transactions.
