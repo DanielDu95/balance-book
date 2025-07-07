@@ -21,8 +21,8 @@ export function CategorySelector({
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   return (
-    <div className="relative">
-      <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
+    <div className="relative max-h-96 overflow-y-auto">
+      <div className="grid grid-cols-3 sm:grid-cols-4 gap-4">
         {categories.map(({ id, name, icon }) => {
           const Icon = iconMap[icon] ?? FaTag;
           return (
