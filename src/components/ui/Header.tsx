@@ -29,7 +29,7 @@ export default function Header() {
           Transactions
         </a>
         <a href="/profile" className="hover:text-accent-1">
-          Profile
+          Profil
         </a>
       </nav>
 
