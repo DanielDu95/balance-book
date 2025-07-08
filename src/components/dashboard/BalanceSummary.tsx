@@ -1,11 +1,8 @@
 import { FaArrowUp, FaArrowDown } from "react-icons/fa";
 
-interface Props {
-  income: number;
-  outcome: number;
-}
-
-export function BalanceSummary({ income, outcome }: Props) {
+const income = 2000; // 🧪 Replace with real dat
+const outcome = 1200; // 🧪 Replace with real data
+export function BalanceSummary() {
   const net = income - outcome;
 
   return (

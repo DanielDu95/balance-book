@@ -22,7 +22,7 @@ export function TransactionTypeToggle({ watch, setValue }: Props) {
             className={`flex-1 text-center rounded-full py-2 transition-colors
               ${
                 isSelected
-                  ? "bg-primary text-black font-semibold"
+                  ? "bg-primary-1 text-black font-semibold"
                   : "text-gray-700 dark:text-gray-300 hover:bg-gray-300 dark:hover:bg-gray-600"
               }`}
           >

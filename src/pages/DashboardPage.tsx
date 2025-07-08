@@ -6,10 +6,6 @@ import { RecentTransactions } from "@/components/dashboard/RecentTransactions";
 import { Transaction } from "@/services/transactions";
 
 // 🧪 Replace with real data in future
-const mockSummary = {
-  income: 200,
-  outcome: 1200,
-};
 
 const mockTransactions: Transaction[] = [
   {
@@ -35,16 +31,10 @@ export default function DashboardPage() {
     <div className="max-w-4xl mx-auto px-4 py-6 space-y-8">
       <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
         <MonthSelector selectedMonth={month} onMonthSelect={setMonth} />
-        <BalanceSummary
-          income={mockSummary.income}
-          outcome={mockSummary.outcome}
-        />
+        <BalanceSummary />
       </div>
 
-      <SpendingChart
-        income={mockSummary.income}
-        outcome={mockSummary.outcome}
-      />
+      <SpendingChart />
       <RecentTransactions transactions={mockTransactions} />
     </div>
   );
