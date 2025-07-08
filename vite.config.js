@@ -5,6 +5,10 @@ import path from "path";
 
 // https://vite.dev/config/
 export default defineConfig({
+  base: "/",
+  build: {
+    outDir: "dist",
+  },
   plugins: [react(), tailwindcss()],
   server: {
     host: "0.0.0.0", // allow access from outside Docker
