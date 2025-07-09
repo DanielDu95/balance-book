@@ -11,7 +11,7 @@ export default function Header() {
     (user?.email ? user.email.split("@")[0] : "Guest");
 
   return (
-    <header className="bg-[var(--color-background-1)] text-[var(--color-foreground)] shadow-md px-6 py-4 flex justify-between items-center relative">
+    <header className="bg-background-2 text-[var(--color-foreground)] shadow-md px-6 py-4 flex justify-between items-center relative">
       {/* Mobile Hamburger Icon */}
       <button
         onClick={() => setIsMenuOpen(!isMenuOpen)}
@@ -29,7 +29,7 @@ export default function Header() {
           Transactions
         </a>
         <a href="/profile" className="hover:text-accent-1">
-          Profil
+          Profile
         </a>
       </nav>
 
@@ -73,7 +73,7 @@ export default function Header() {
 
       {/* Mobile Menu */}
       <div
-        className={`lg:hidden ${
+        className={`lg:hidden font-bold text-foreground-2 ${
           isMenuOpen ? "block" : "hidden"
         } absolute top-16 left-0 right-0 bg-background-1 text-center py-4 z-10 transition-all duration-300 ease-in-out transform ${
           isMenuOpen ? "translate-y-0" : "-translate-y-full"
@@ -84,21 +84,21 @@ export default function Header() {
       >
         <a
           href="/"
-          className="block py-2 text-foreground-1 hover:text-primary-1"
+          className="block py-2  hover:text-primary-1"
           onClick={() => setIsMenuOpen(false)} // Close the menu when a link is clicked
         >
           Dashboard
         </a>
         <a
           href="/transactions"
-          className="block py-2 text-foreground-1 hover:text-primary-1"
+          className="block py-2  hover:text-primary-1"
           onClick={() => setIsMenuOpen(false)} // Close the menu when a link is clicked
         >
           Transactions
         </a>
         <a
           href="/profile"
-          className="block py-2 text-foreground-1 hover:text-primary-1"
+          className="block py-2  hover:text-primary-1"
           onClick={() => setIsMenuOpen(false)} // Close the menu when a link is clicked
         >
           Profile

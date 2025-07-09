@@ -7,9 +7,12 @@ import {
   updateTransaction,
   deleteTransaction,
 } from "../services/transactions";
+import { useAuthContext } from "@/contexts/AuthContext";
 
-export function useTransactions(userId: string) {
+export function useTransactions() {
   const queryClient = useQueryClient();
+  const { user } = useAuthContext();
+  const userId = user?.id;
 
   // 🔁 Fetch transactions
   const {
@@ -55,7 +58,7 @@ export function useTransactions(userId: string) {
   });
 
   return {
-    data: transactions,
+    transactions,
     loading: isLoading,
     error: isError ? (error as Error) : null,
     addTransaction,

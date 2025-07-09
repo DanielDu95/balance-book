@@ -1,40 +1,40 @@
-import { FaArrowUp, FaArrowDown } from "react-icons/fa";
+import { useTransactions } from "@/hooks/useTransactions";
 
-const income = 2000; // 🧪 Replace with real dat
-const outcome = 1200; // 🧪 Replace with real data
 export function BalanceSummary() {
+  const { transactions } = useTransactions();
+
+  const income = transactions
+    .filter((t) => t.moneyType === "income")
+    .reduce((sum, t) => sum + t.amount, 0);
+
+  const outcome = transactions
+    .filter((t) => t.moneyType === "outcome")
+    .reduce((sum, t) => sum + t.amount, 0);
+
   const net = income - outcome;
 
   return (
-    <div className="grid grid-rows-3 gap-3 text-sm w-full md:w-72">
+    <div className="grid grid-rows-3 gap-3 text-sm w-full max-w-full md:w-80 mx-auto md:mx-0">
       {/* Income */}
-      <div className="flex items-center justify-between bg-green-100 dark:bg-green-800 px-4 py-3 rounded-xl shadow">
-        <span className="text-gray-600 dark:text-gray-300 flex items-center gap-1">
-          <FaArrowUp className="text-green-500 dark:text-green-300" />
+      <div className="flex items-center justify-between bg-primary-1 px-4 py-3 rounded-xl shadow">
+        <span className="text-foreground-1 text-2xl font-bold flex items-center gap-1">
           Income
         </span>
-        <span className="text-2xl font-bold text-green-600 dark:text-green-300">
-          ¥{income}
-        </span>
+        <span className="text-2xl font-bold text-foreground-1">¥{income}</span>
       </div>
 
       {/* Outcome */}
-      <div className="flex items-center justify-between bg-red-100 dark:bg-red-800 px-4 py-3 rounded-xl shadow">
-        <span className="text-gray-600 dark:text-gray-300 flex items-center gap-1">
-          <FaArrowDown className="text-red-500 dark:text-red-300" />
+      <div className="flex items-center justify-between bg-accent-1 px-4 py-3 rounded-xl shadow">
+        <span className="text-foreground-1 flex items-center text-2xl font-bold gap-1">
           Outcome
         </span>
-        <span className="text-2xl font-bold text-red-600 dark:text-red-300">
-          ¥{outcome}
-        </span>
+        <span className="text-2xl font-bold text-foreground-1">¥{outcome}</span>
       </div>
 
       {/* Net */}
-      <div className="flex items-center justify-between bg-gray-100 dark:bg-gray-700 px-4 py-3 rounded-xl shadow">
-        <span className="text-gray-600 dark:text-gray-300">Net</span>
-        <span className="text-2xl font-bold text-gray-800 dark:text-white">
-          ¥{net}
-        </span>
+      <div className="flex items-center justify-between text-2xl font-bold bg-accent-2 px-4 py-3 rounded-xl shadow">
+        <span className="text-foreground-1">Net</span>
+        <span className="text-2xl font-bold text-foreground-1">¥{net}</span>
       </div>
     </div>
   );

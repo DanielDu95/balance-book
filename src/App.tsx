@@ -10,7 +10,7 @@ import Header from "@/components/ui/Header"; // Import the Header component
 
 export default function App() {
   return (
-    <div className="min-h-screen  bg-gray-100 text-gray-900dark:text-white transition-colors">
+    <div className="min-h-screen  bg-background-1 text-gray-900 transition-colors">
       <Header /> {/* Header component is placed outside of Routes */}
       <Routes>
         <Route

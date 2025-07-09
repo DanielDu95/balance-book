@@ -10,10 +10,10 @@
   --color-accent-1: oklch(0.82 0.18 40); /* Warm Orange */
   --color-accent-2: oklch(0.75 0.08 160); /* Mint Green */
 
-  --color-foreground-1: oklch(0 0 0); /* Primary foreground (text) */
+  --color-foreground-1: oklch(0.2 0 0); /* Primary foreground (text) */
   --color-foreground-2: oklch(0.4 0 0); /* Secondary foreground (text) */
   --color-background-1: oklch(1 0 0); /* Light background */
-  --color-background-2: oklch(0.9 0 0); /* Light background variant */
+  --color-background-2: oklch(0.98 0 0); /* Light background variant */
   --color-destructive-1: oklch(0.577 0.245 27.325); /* Error color */
   --color-muted-1: oklch(0.5 0 0); /* Muted background color */
 
@@ -38,34 +38,16 @@
   }
 
   .dark {
-    /* Dark Mode Colors */
-    --color-primary-1: oklch(0.72 0.1 280); /* Deep Purple */
-    --color-accent-1: oklch(0.6 0.13 200); /* Cool Blue */
-    --color-accent-2: oklch(0.5 0.07 340); /* Crimson */
+    --color-primary-1: oklch(0.85 0.18 90); /* Softer Yellow */
+    --color-accent-1: oklch(0.7 0.2 40); /* Slightly dimmed Orange */
+    --color-accent-2: oklch(0.6 0.1 160); /* Cooler Mint */
 
-    --color-primary-foreground: oklch(
-      0.205 0 0
-    ); /* Primary foreground (text) */
-    --color-secondary: oklch(0.269 0 0); /* Secondary color */
-    --color-secondary-foreground: oklch(
-      0.985 0 0
-    ); /* Secondary foreground (text) */
-    --color-muted: oklch(0.269 0 0); /* Muted background color */
-    --color-muted-foreground: oklch(0.708 0 0); /* Muted text */
-    --color-accent: oklch(0.269 0 0); /* Accent color */
-    --color-accent-foreground: oklch(0.985 0 0); /* Accent foreground (text) */
-    --color-destructive: oklch(0.704 0.191 22.216); /* Error color */
-    --color-border: oklch(1 0 0 / 10%); /* Border color */
-    --color-input: oklch(1 0 0 / 15%); /* Input background color */
-    --color-ring: oklch(0.556 0 0); /* Ring color (focus) */
-
-    --color-background: oklch(0.145 0 0); /* Dark background */
-    --color-foreground: oklch(0.985 0 0); /* Light text */
-    --color-card: oklch(0.205 0 0); /* Dark card background */
-    --color-card-foreground: oklch(0.985 0 0); /* Light card text */
-    --color-popover: oklch(0.205 0 0); /* Dark popover */
-    --color-popover-foreground: oklch(0.985 0 0); /* Light popover text */
-
+    --color-foreground-1: oklch(1 0 0); /* White text */
+    --color-foreground-2: oklch(0.8 0 0); /* Light Gray text */
+    --color-background-1: oklch(0.3 0 0); /* Near black */
+    --color-background-2: oklch(0.4 0 0); /* Slightly lighter background */
+    --color-destructive-1: oklch(0.65 0.24 27.325); /* Brighter Red */
+    --color-muted-1: oklch(0.3 0 0); /* Dark Gray */
     --color-chart-1: oklch(0.488 0.243 264.376); /* Chart color 1 */
     --color-chart-2: oklch(0.696 0.17 162.48); /* Chart color 2 */
     --color-chart-3: oklch(0.769 0.188 70.08); /* Chart color 3 */
@@ -81,8 +63,8 @@
 @layer components {
   .btn {
     @apply inline-flex items-center justify-center px-4 py-2 rounded-md text-sm font-medium transition-colors;
-    background-color: var(--color-primary);
-    color: black;
+    background-color: var(--color-primary-1);
+    color: var(--color-foreground-1);
   }
 
   .btn:hover {
