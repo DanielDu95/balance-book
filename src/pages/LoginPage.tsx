@@ -2,7 +2,7 @@ import { useState } from "react";
 import { supabase } from "../lib/supabase";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
-import AuthBackground from "../components/ui/AuthBackground"; // 👈 import background
+import AuthBackground from "../components/ui/AuthBackground"; // 👈 background
 import { useAuth } from "@/hooks/useAuth";
 
 export default function LoginPage() {
@@ -18,22 +18,21 @@ export default function LoginPage() {
 
     try {
       await signIn(email, password);
-
-      setLoading(false);
-    } catch (error) {
-      toast.error(error.message);
-    } finally {
       toast.success("Logged in!");
       navigate("/");
+    } catch (error) {
+      toast.error((error as Error).message);
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
     <div className="relative min-h-screen flex items-center justify-center overflow-hidden">
-      <AuthBackground /> {/* 👈 background layer */}
+      <AuthBackground />
       <form
         onSubmit={handleLogin}
-        className="relative z-10 bg-background-1  p-8 rounded-xl shadow-lg w-full max-w-sm backdrop-blur-md bg-opacity-80 "
+        className="relative z-10 bg-background-1 p-8 rounded-xl shadow-lg w-full max-w-sm backdrop-blur-md bg-opacity-80"
       >
         <h1 className="text-2xl font-bold mb-6 text-center">Login</h1>
 
@@ -49,7 +48,7 @@ export default function LoginPage() {
         <label className="block text-sm font-medium mb-1">Password</label>
         <input
           type="password"
-          className="w-full px-4 py-2 mb-6 rounded-md border "
+          className="w-full px-4 py-2 mb-6 rounded-md border"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           required
@@ -58,6 +57,18 @@ export default function LoginPage() {
         <button type="submit" className="btn w-full" disabled={loading}>
           {loading ? "Logging in..." : "Login"}
         </button>
+
+        {/* 👇 Sign Up Navigation */}
+        <p className="mt-4 text-center text-sm">
+          Don't have an account?{" "}
+          <button
+            type="button"
+            onClick={() => navigate("/signup")}
+            className="text-primary-1 hover:underline"
+          >
+            Sign up
+          </button>
+        </p>
       </form>
     </div>
   );

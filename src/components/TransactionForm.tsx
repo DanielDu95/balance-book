@@ -42,7 +42,7 @@ export default function TransactionForm() {
     error: categoriesError,
   } = useCategories(userId, type);
 
-  const { addTransaction } = useTransactions(userId);
+  const { addTransaction } = useTransactions();
 
   const onSubmit = async (data: TransactionFormData) => {
     try {
@@ -65,14 +65,14 @@ export default function TransactionForm() {
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className="space-y-6  bg-white dark:bg-gray-800 p-6 rounded-xl shadow-md max-w-md mx-auto"
+      className="space-y-6  bg-background-1  p-6 rounded-xl shadow-md max-w-md mx-auto"
     >
       <TransactionTypeToggle watch={watch} setValue={setValue} />
 
       {categoriesLoading ? (
         <Spinner />
       ) : categoriesError ? (
-        <p className="text-red-500">Failed to load categories</p>
+        <p className="text-destructive-1">Failed to load categories</p>
       ) : (
         <>
           <CategorySelector
@@ -82,7 +82,7 @@ export default function TransactionForm() {
             categories={categories}
           />
           {errors.category && (
-            <p className="text-red-500 text-sm">Category is required</p>
+            <p className="text-destructive-1 text-sm">Category is required</p>
           )}
         </>
       )}
@@ -91,7 +91,7 @@ export default function TransactionForm() {
       <div className="flex items-center justify-between gap-4">
         <label
           htmlFor="amount"
-          className="w-24 text-base font-bold text-primary"
+          className="w-24 text-base font-bold text-primary-1"
         >
           Amount
         </label>
@@ -100,17 +100,17 @@ export default function TransactionForm() {
             id="amount"
             type="number"
             {...register("amount", { required: true, min: 1 })}
-            className="w-full rounded-full border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 px-4 py-2 pr-10 text-gray-800 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition"
+            className="w-full rounded-full border border-foreground-2  bg-white  px-4 py-2 pr-10 text-foreground-1 focus:outline-none focus:ring-2 focus:ring-primary-1 focus:border-transparent transition"
             placeholder="Enter amount"
           />
           <FaMoneyBillWave className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500" />
         </div>
       </div>
       {errors.amount?.type === "required" && (
-        <p className="text-red-500 text-sm ml-28">Amount is required</p>
+        <p className="text-destructive-1 text-sm ml-28">Amount is required</p>
       )}
       {errors.amount?.type === "min" && (
-        <p className="text-red-500 text-sm ml-28">
+        <p className="text-destructive-1 text-sm ml-28">
           Amount must be greater than 0
         </p>
       )}
@@ -119,7 +119,7 @@ export default function TransactionForm() {
       <div className="flex items-center justify-between gap-4 mt-4">
         <label
           htmlFor="remark"
-          className="w-24 text-base font-bold text-primary"
+          className="w-24 text-base font-bold text-primary-1"
         >
           Remark
         </label>
@@ -128,7 +128,7 @@ export default function TransactionForm() {
             id="remark"
             type="text"
             {...register("remark")}
-            className="w-full rounded-full border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 px-4 py-2 pr-10 text-gray-800 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition"
+            className="w-full rounded-full border border-foreground-2  bg-white px-4 py-2 pr-10 text-foreground-1 focus:outline-none focus:ring-2 focus:ring-primary-1 focus:border-transparent transition"
             placeholder="Optional description"
           />
           <FaStickyNote className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500" />

@@ -1,4 +1,4 @@
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useLocation } from "react-router-dom";
 
 import DashboardPage from "./pages/DashboardPage";
 import TransactionsPage from "./pages/TransactionsPage";
@@ -6,12 +6,18 @@ import LoginPage from "./pages/LoginPage";
 import NotFoundPage from "./pages/NotFoundPage";
 import SignUpPage from "./pages/SignUpPage";
 import ProtectedRoute from "./components/ProtectedRoute";
-import Header from "@/components/ui/Header"; // Import the Header component
+import Header from "@/components/ui/Header";
 
 export default function App() {
+  const location = useLocation();
+
+  // Define routes where header should be hidden
+  const hideHeaderRoutes = ["/login", "/signup"];
+  const shouldHideHeader = hideHeaderRoutes.includes(location.pathname);
+
   return (
-    <div className="min-h-screen  bg-background-1 text-gray-900 transition-colors">
-      <Header /> {/* Header component is placed outside of Routes */}
+    <div className="min-h-screen font-sans bg-background-1 text-gray-900 transition-colors">
+      {!shouldHideHeader && <Header />}
       <Routes>
         <Route
           path="/"

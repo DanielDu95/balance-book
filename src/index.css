@@ -25,6 +25,7 @@
   --color-chart-5: oklch(0.769 0.188 70.08); /* Chart color 5 */
 
   --text-xl: 18px;
+  --font-sans: "Titillium Web", sans-serif;
 }
 
 @layer base {

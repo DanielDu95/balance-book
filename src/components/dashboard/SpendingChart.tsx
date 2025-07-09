@@ -57,9 +57,11 @@ function generateChartConfig(data: { category: string; fill: string }[]) {
   );
 }
 
-export function SpendingChart() {
-  const { transactions } = useTransactions();
-
+export function SpendingChart({
+  transactions,
+}: {
+  transactions: ReturnType<typeof useTransactions>["transactions"];
+}) {
   const outcomeData = prepareChartData(transactions, "outcome");
   const incomeData = prepareChartData(transactions, "income");
 

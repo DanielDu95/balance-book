@@ -26,9 +26,9 @@ export const CategoryItem: FC<Props> = ({
         className={`flex items-center justify-center rounded-full w-16 h-16 p-2
         ${
           selected
-            ? "bg-primary text-black"
-            : "bg-gray-200 dark:bg-gray-600 text-gray-600"
-        } hover:bg-primary hover:text-black`}
+            ? "bg-primary-1 text-foreground-1"
+            : "bg-gray-200 text-foreground-1"
+        } hover:bg-primary-1 `}
       >
         <Icon size={24} />
       </div>

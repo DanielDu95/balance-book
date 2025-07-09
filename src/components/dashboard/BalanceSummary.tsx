@@ -1,8 +1,10 @@
 import { useTransactions } from "@/hooks/useTransactions";
 
-export function BalanceSummary() {
-  const { transactions } = useTransactions();
-
+export function BalanceSummary({
+  transactions,
+}: {
+  transactions: ReturnType<typeof useTransactions>["transactions"];
+}) {
   const income = transactions
     .filter((t) => t.moneyType === "income")
     .reduce((sum, t) => sum + t.amount, 0);
