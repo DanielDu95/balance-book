@@ -43,10 +43,13 @@ export function CategorySelector({
           onClick={() => setIsModalOpen(true)}
           className="flex flex-col items-center justify-center p-4 transition"
         >
-          <div className="flex items-center justify-center rounded-full w-16 h-16 p-2 bg-gray-200 dark:bg-gray-600 hover:bg-primary">
-            <FaPlus size={24} className="text-gray-600 dark:text-gray-300" />
+          <div className="flex items-center justify-center rounded-full w-16 h-16 p-2 bg-background-3  hover:bg-primary-1">
+            <FaPlus
+              size={24}
+              className="text-foreground-2 dark:text-gray-300"
+            />
           </div>
-          <span className="text-sm mt-2">Add</span>
+          <span className="text-sm text-foreground-2 mt-2">Add</span>
         </button>
       </div>
 

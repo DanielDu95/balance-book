@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { FaUserCircle, FaSignOutAlt, FaBars, FaTimes } from "react-icons/fa";
 import { useAuthContext } from "../../contexts/AuthContext"; // Assuming your context provides user info
+import { Link } from "react-router-dom";
 
 export default function Header() {
   const { user, signOut: logout } = useAuthContext(); // Access the logged-in user from context
@@ -27,9 +28,6 @@ export default function Header() {
         </a>
         <a href="/transactions" className="hover:text-accent-1">
           Transactions
-        </a>
-        <a href="/profile" className="hover:text-accent-1">
-          Profile
         </a>
       </nav>
 
@@ -82,27 +80,20 @@ export default function Header() {
           minHeight: "100px", // Adjust this value based on your header height
         }}
       >
-        <a
-          href="/"
+        <Link
+          to="/"
           className="block py-2  hover:text-primary-1"
           onClick={() => setIsMenuOpen(false)} // Close the menu when a link is clicked
         >
           Dashboard
-        </a>
-        <a
-          href="/transactions"
+        </Link>
+        <Link
+          to="/transactions"
           className="block py-2  hover:text-primary-1"
           onClick={() => setIsMenuOpen(false)} // Close the menu when a link is clicked
         >
           Transactions
-        </a>
-        <a
-          href="/profile"
-          className="block py-2  hover:text-primary-1"
-          onClick={() => setIsMenuOpen(false)} // Close the menu when a link is clicked
-        >
-          Profile
-        </a>
+        </Link>
       </div>
     </header>
   );

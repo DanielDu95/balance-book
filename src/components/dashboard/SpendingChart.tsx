@@ -16,38 +16,38 @@ import {
 } from "@/components/ui/chart";
 import { useTransactions } from "@/hooks/useTransactions";
 
-// 🔹 Shared color function
-function getCategoryColor(category: string): string {
-  const colorMap: Record<string, string> = {
-    Food: "var(--color-accent-1)",
-    Shopping: "var(--color-accent-2)",
-    Transport: "var(--color-primary-1)",
-    Salary: "var(--color-muted-1)",
-    Other: "var(--color-muted-1)",
-  };
-  return colorMap[category] || "var(--color-muted-1)";
-}
+// 🔹 Repeating chart colors
+const chartColors = [
+  "var(--color-chart-1)",
+  "var(--color-chart-2)",
+  "var(--color-chart-3)",
+  "var(--color-chart-4)",
+  "var(--color-chart-5)",
+];
 
-// 🔹 Generate chart data grouped by category
+// 🔹 Generate chart data grouped by category with repeating colors
 function prepareChartData(
   transactions: ReturnType<typeof useTransactions>["transactions"],
   type: "income" | "outcome"
 ) {
-  return transactions
+  const categoryMap = new Map<string, { category: string; amount: number }>();
+
+  transactions
     .filter((t) => t.moneyType === type)
-    .reduce((acc, t) => {
-      const existing = acc.find((item) => item.category === t.category);
+    .forEach((t) => {
+      const existing = categoryMap.get(t.category);
       if (existing) {
         existing.amount += t.amount;
       } else {
-        acc.push({
-          category: t.category,
-          amount: t.amount,
-          fill: getCategoryColor(t.category),
-        });
+        categoryMap.set(t.category, { category: t.category, amount: t.amount });
       }
-      return acc;
-    }, [] as { category: string; amount: number; fill: string }[]);
+    });
+
+  // Assign color by index, cycle through the predefined chartColors
+  return Array.from(categoryMap.values()).map((item, index) => ({
+    ...item,
+    fill: chartColors[index % chartColors.length],
+  }));
 }
 
 // 🔹 Generate chart config object

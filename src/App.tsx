@@ -16,7 +16,7 @@ export default function App() {
   const shouldHideHeader = hideHeaderRoutes.includes(location.pathname);
 
   return (
-    <div className="min-h-screen font-sans bg-background-1 text-gray-900 transition-colors">
+    <div className="min-h-screen dark font-sans bg-background-1 text-gray-900 transition-colors">
       {!shouldHideHeader && <Header />}
       <Routes>
         <Route

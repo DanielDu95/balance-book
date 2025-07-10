@@ -24,6 +24,7 @@ export function useTransactions() {
     queryKey: ["transactions", userId],
     queryFn: () => getTransactions(userId),
     enabled: !!userId,
+    staleTime: 1000 * 60 * 5, // 5 minutes — keeps data fresh
   });
 
   // ➕ Create transaction

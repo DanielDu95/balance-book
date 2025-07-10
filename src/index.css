@@ -14,15 +14,17 @@
   --color-foreground-2: oklch(0.4 0 0); /* Secondary foreground (text) */
   --color-background-1: oklch(1 0 0); /* Light background */
   --color-background-2: oklch(0.98 0 0); /* Light background variant */
+  --color-background-3: oklch(0.8 0 0); /* Slightly darker background */
   --color-destructive-1: oklch(0.577 0.245 27.325); /* Error color */
   --color-muted-1: oklch(0.5 0 0); /* Muted background color */
+  --color
 
-  /* Border color */
-  --color-chart-1: oklch(0.646 0.222 41.116); /* Chart color 1 */
-  --color-chart-2: oklch(0.6 0.118 184.704); /* Chart color 2 */
-  --color-chart-3: oklch(0.398 0.07 227.392); /* Chart color 3 */
-  --color-chart-4: oklch(0.828 0.189 84.429); /* Chart color 4 */
-  --color-chart-5: oklch(0.769 0.188 70.08); /* Chart color 5 */
+  /* Chart Colors - Improved Palette */
+  --color-chart-1: oklch(0.78 0.22 55);  /* Warm orange-red */
+  --color-chart-2: oklch(0.76 0.16 130); /* Soft blue */
+  --color-chart-3: oklch(0.72 0.18 200); /* Cool cyan */
+  --color-chart-4: oklch(0.75 0.19 90); /* Leaf green */
+  --color-chart-5: oklch(0.8 0.22 350); /* Magenta/pink */
 
   --text-xl: 18px;
   --font-sans: "Titillium Web", sans-serif;
@@ -49,11 +51,15 @@
     --color-background-2: oklch(0.4 0 0); /* Slightly lighter background */
     --color-destructive-1: oklch(0.65 0.24 27.325); /* Brighter Red */
     --color-muted-1: oklch(0.3 0 0); /* Dark Gray */
-    --color-chart-1: oklch(0.488 0.243 264.376); /* Chart color 1 */
-    --color-chart-2: oklch(0.696 0.17 162.48); /* Chart color 2 */
-    --color-chart-3: oklch(0.769 0.188 70.08); /* Chart color 3 */
-    --color-chart-4: oklch(0.627 0.265 303.9); /* Chart color 4 */
-    --color-chart-5: oklch(0.645 0.246 16.439); /* Chart color 5 */
+
+    --color-chart-1: oklch(55.772% 0.06546 116.819);    /* Darker warm orange-red */
+    --color-chart-2: oklch(0.42 0.18 130);  /* Darker soft blue */
+    --color-chart-3: oklch(0.40 0.20 200);  /* Darker cool cyan */
+    --color-chart-4: oklch(0.44 0.21 90);   /* Darker leaf green */
+    --color-chart-5: oklch(0.46 0.24 350);  /* Darker magenta/pink */
+
+    --text-xl: 16px; /* Slightly smaller text size */
+    --font-sans: "Titillium Web", sans-serif; /* Consistent font */
   }
 
   body {
@@ -106,11 +112,7 @@
   --color-border: var(--border);
   --color-input: var(--input);
   --color-ring: var(--ring);
-  --color-chart-1: var(--chart-1);
-  --color-chart-2: var(--chart-2);
-  --color-chart-3: var(--chart-3);
-  --color-chart-4: var(--chart-4);
-  --color-chart-5: var(--chart-5);
+
   --color-sidebar: var(--sidebar);
   --color-sidebar-foreground: var(--sidebar-foreground);
   --color-sidebar-primary: var(--sidebar-primary);

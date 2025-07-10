@@ -27,12 +27,12 @@ export const CategoryItem: FC<Props> = ({
         ${
           selected
             ? "bg-primary-1 text-foreground-1"
-            : "bg-gray-200 text-foreground-1"
+            : "bg-background-3 text-foreground-1"
         } hover:bg-primary-1 `}
       >
         <Icon size={24} />
       </div>
-      <span className="text-sm mt-2">{name}</span>
+      <span className="text-sm text-foreground-2 mt-2">{name}</span>
     </button>
   );
 };

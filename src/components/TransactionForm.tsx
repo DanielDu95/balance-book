@@ -100,10 +100,10 @@ export default function TransactionForm() {
             id="amount"
             type="number"
             {...register("amount", { required: true, min: 1 })}
-            className="w-full rounded-full border border-foreground-2  bg-white  px-4 py-2 pr-10 text-foreground-1 focus:outline-none focus:ring-2 focus:ring-primary-1 focus:border-transparent transition"
+            className="w-full rounded-full border border-foreground-2  bg-background-1  px-4 py-2 pr-10 text-foreground-1 focus:outline-none focus:ring-2 focus:ring-primary-1 focus:border-transparent transition"
             placeholder="Enter amount"
           />
-          <FaMoneyBillWave className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500" />
+          <FaMoneyBillWave className="absolute right-3 top-1/2 -translate-y-1/2 text-foreground-2" />
         </div>
       </div>
       {errors.amount?.type === "required" && (
@@ -128,10 +128,10 @@ export default function TransactionForm() {
             id="remark"
             type="text"
             {...register("remark")}
-            className="w-full rounded-full border border-foreground-2  bg-white px-4 py-2 pr-10 text-foreground-1 focus:outline-none focus:ring-2 focus:ring-primary-1 focus:border-transparent transition"
+            className="w-full rounded-full border border-foreground-2  bg-background-1 px-4 py-2 pr-10 text-foreground-1 focus:outline-none focus:ring-2 focus:ring-primary-1 focus:border-transparent transition"
             placeholder="Optional description"
           />
-          <FaStickyNote className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500" />
+          <FaStickyNote className="absolute right-3 top-1/2 -translate-y-1/2 text-foreground-2" />
         </div>
       </div>
 

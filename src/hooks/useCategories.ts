@@ -16,7 +16,10 @@ export function useCategories(userId: string, type: "income" | "outcome") {
   const { data, isLoading, error } = useQuery({
     queryKey,
     queryFn: () => getCategories(userId, type),
-    enabled: !!userId, // only run when userId exists
+    enabled: !!userId,
+    staleTime: 1000 * 60 * 5, // cache data for 5 minutes to avoid spinner flashes
+    // Optional: show cached data immediately while refetching in background
+    // placeholderData: () => queryClient.getQueryData(queryKey),
   });
 
   // Add category
