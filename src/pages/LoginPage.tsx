@@ -28,7 +28,7 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="relative min-h-screen flex items-center justify-center overflow-hidden">
+    <div className="relative text-foreground-2 min-h-screen flex items-center justify-center overflow-hidden">
       <AuthBackground />
       <form
         onSubmit={handleLogin}
